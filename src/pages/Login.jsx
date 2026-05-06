@@ -103,7 +103,8 @@ export default function Login() {
           Demo Credentials:
           <br />
           Admin → saqeeb@example.com / 123456
-          User -> user@exaple.com / 123456
+          User → user@exaple.com / 123456
+
         </p>
 
       </div>
