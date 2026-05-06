@@ -4,7 +4,8 @@ A full-stack **Safety Issue Management System** built using:
 
 * **Frontend:** React (Vite)
 * **Backend:** NestJS (Node.js)
-* **Database:** PostgreSQL
+* **Database:** Mysql
+* **ORM: ** TypeORM
 * **Deployment:** Render
 
 ---
@@ -21,14 +22,14 @@ A full-stack **Safety Issue Management System** built using:
 ## 👑 Admin
 
 ```
-Email: admin@example.com
+Email: saqeeb@example.com
 Password: 123456
 ```
 
 ## 👤 User
 
 ```
-Email: user@example.com
+Email: user@exaple.com
 Password: 123456
 ```
 
