@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Issues from "./pages/Issues";
@@ -6,11 +6,16 @@ import CreateIssue from "./pages/CreateIssue";
 import Login from "./pages/Login";
 import AuditLogs from "./pages/AuditLogs";
 
-
 function App() {
+  const location = useLocation();
+
+  // hide navbar only on login page
+  const hideNavbar = location.pathname === "/";
+
   return (
     <>
-      <Navbar />
+      {!hideNavbar && <Navbar />}
+
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
