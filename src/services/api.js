@@ -1,4 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const API = async (url, options = {}) => {
   const token = localStorage.getItem("token");
@@ -106,9 +107,12 @@ export const deleteIssue = async (id) => {
     },
   });
 
+  if (!res.ok) {
+    throw new Error("Delete failed");
+  }
+
   return res.json();
 };
-
 export const getLogs = () => API("/audit")
 
 export const loginUser = async (email, password) => {
