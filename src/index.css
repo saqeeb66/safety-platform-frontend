@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Smooth font + base styling */
+body {
+  @apply bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white antialiased;
+}
+
+
