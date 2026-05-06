@@ -3,6 +3,7 @@ import {
 getIssues,
 updateIssueStatus,
 assignIssue,
+deleteIssue,
 } from "../services/api";
 
 export default function Issues() {
@@ -20,7 +21,26 @@ limit: 5,
 
 const [total, setTotal] = useState(0);
 const [selectedImage, setSelectedImage] = useState(null);
+  
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this issue?"
+  );
 
+  if (!confirmDelete) return;
+
+  try {
+    await deleteIssue(id);
+
+    fetchIssues();
+
+    alert("Issue deleted successfully ✅");
+  } catch (err) {
+    console.error(err);
+    alert("Delete failed ❌");
+  }
+};
+  
 const allowedTransitions = {
 OPEN: ["ASSIGNED"],
 ASSIGNED: ["IN_PROGRESS"],
@@ -191,6 +211,14 @@ return ( <div className="pt-24 px-6 max-w-6xl mx-auto text-white">
               >
                 Assign
               </button>
+            )}
+            {role === "ADMIN" && (
+            <button
+            onClick={() => handleDelete(issue.id)}
+            className="px-3 py-1 bg-red-600/20 text-red-400 rounded hover:bg-red-600/40 transition"
+            >
+            Delete
+          </button>
             )}
 
             {role === "ADMIN" &&
