@@ -13,8 +13,7 @@ A full-stack **Safety Issue Management System** built using:
 # 🌐 Live URLs
 
 * 🔗 Backend: https://safety-platform-backend.onrender.com
-* 🔗 Frontend: *(add your deployed frontend URL here)*
-
+* 🔗 Frontend: https://safety-platform-frontend.onrender.com
 ---
 
 # 🔐 Login Credentials
