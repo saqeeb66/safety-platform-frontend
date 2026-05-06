@@ -96,6 +96,19 @@ export const downloadCSV = async (filters = {}) => {
   a.click();
 };
 
+export const deleteIssue = async (id) => {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${API_URL}/issues/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.json();
+};
+
 export const getLogs = () => API("/audit")
 
 export const loginUser = async (email, password) => {
