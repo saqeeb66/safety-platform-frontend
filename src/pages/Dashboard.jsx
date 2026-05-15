@@ -30,10 +30,18 @@ export default function Dashboard() {
 
   const [loading, setLoading] = useState(true);
 
-  const COLORS = ["#6366F1", "#F59E0B", "#10B981", "#EF4444", "#8B5CF6"];
+  // 🌈 PEARL COLORS
+  const COLORS = [
+    "#c4b5fd",
+    "#f9a8d4",
+    "#93c5fd",
+    "#a7f3d0",
+    "#fde68a",
+  ];
 
   const fetchData = async () => {
     setLoading(true);
+
     try {
       const statsRes = await getStats();
       const dashRes = await getDashboard(filters);
@@ -44,7 +52,7 @@ export default function Dashboard() {
         { title: "In Progress", value: statsRes.IN_PROGRESS || 0 },
         { title: "Resolved", value: statsRes.RESOLVED || 0 },
         { title: "Closed", value: statsRes.CLOSED || 0 },
-        { title: "Total", value: dashRes.total || 0 }, // 🔥 NEW
+        { title: "Total", value: dashRes.total || 0 },
       ]);
 
       setLocationData(
@@ -61,7 +69,7 @@ export default function Dashboard() {
         }))
       );
 
-      // 🔥 MOCK TREND DATA (can connect backend later)
+      // 🔥 DEMO TREND
       setTrendData([
         { day: "Mon", issues: 4 },
         { day: "Tue", issues: 7 },
@@ -82,135 +90,191 @@ export default function Dashboard() {
   }, [filters]);
 
   return (
-    <div className="pt-24 px-6 max-w-7xl mx-auto text-white">
+    <div className="min-h-screen relative overflow-hidden bg-[#f7f4ff] text-[#1e1b4b]">
 
-      {/* 🔥 HEADER */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+      {/* 🌈 PEARL BLOBS */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-pink-200/40 blur-[120px] rounded-full" />
 
-        <h1 className="text-4xl font-bold">
-          Dashboard 🚀
-        </h1>
+      <div className="absolute top-[20%] right-0 w-[450px] h-[450px] bg-purple-200/40 blur-[120px] rounded-full" />
 
-        <div className="flex gap-3 flex-wrap">
+      <div className="absolute bottom-0 left-[30%] w-[500px] h-[500px] bg-cyan-100/40 blur-[120px] rounded-full" />
 
-          {/* 🔥 DATE FILTER */}
-          <input
-            type="date"
-            onChange={(e) =>
-              setFilters({ ...filters, fromDate: e.target.value })
-            }
-            className="p-2 rounded bg-white/10 border border-white/20"
-          />
+      <div className="relative z-10 pt-24 px-6 max-w-7xl mx-auto">
 
-          <input
-            type="date"
-            onChange={(e) =>
-              setFilters({ ...filters, toDate: e.target.value })
-            }
-            className="p-2 rounded bg-white/10 border border-white/20"
-          />
+        {/* 🔥 HEADER */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
 
-          <button
-            onClick={fetchData}
-            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20"
-          >
-            🔄 Refresh
-          </button>
+          <div>
+            <h1 className="text-5xl font-black tracking-tight">
+              Dashboard ✨
+            </h1>
 
-          <button
-            onClick={() => downloadCSV(filters)}
-            className="px-4 py-2 rounded-lg bg-green-500/20 hover:bg-green-500/30"
-          >
-            📊 CSV
-          </button>
+            <p className="text-[#6b7280] mt-2">
+              Crystal analytics overview of your safety platform
+            </p>
+          </div>
 
-          <button
-            onClick={downloadPDF}
-            className="px-4 py-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30"
-          >
-            📄 PDF
-          </button>
+          {/* ACTIONS */}
+          <div className="flex gap-3 flex-wrap">
 
+            <input
+              type="date"
+              onChange={(e) =>
+                setFilters({ ...filters, fromDate: e.target.value })
+              }
+              className="p-3 rounded-2xl bg-white/70 border border-white/50 backdrop-blur-xl shadow-sm"
+            />
+
+            <input
+              type="date"
+              onChange={(e) =>
+                setFilters({ ...filters, toDate: e.target.value })
+              }
+              className="p-3 rounded-2xl bg-white/70 border border-white/50 backdrop-blur-xl shadow-sm"
+            />
+
+            <button
+              onClick={fetchData}
+              className="px-5 py-3 rounded-2xl bg-white/60 hover:bg-white/80 backdrop-blur-xl border border-white/40 transition-all duration-300 hover:scale-105 shadow-md"
+            >
+              🔄 Refresh
+            </button>
+
+            <button
+              onClick={() => downloadCSV(filters)}
+              className="px-5 py-3 rounded-2xl bg-emerald-100/80 hover:bg-emerald-200/80 text-emerald-700 border border-emerald-200 transition-all duration-300 hover:scale-105 shadow-md"
+            >
+              📊 CSV
+            </button>
+
+            <button
+              onClick={downloadPDF}
+              className="px-5 py-3 rounded-2xl bg-purple-100/80 hover:bg-purple-200/80 text-purple-700 border border-purple-200 transition-all duration-300 hover:scale-105 shadow-md"
+            >
+              📄 PDF
+            </button>
+
+          </div>
         </div>
-      </div>
 
-      {loading ? (
-        <p className="animate-pulse text-gray-300">Loading dashboard...</p>
-      ) : (
-        <>
-          {/* 🔥 STATS */}
-          <div className="grid md:grid-cols-6 gap-4 mb-10">
-            {stats.map((s, i) => (
-              <div
-                key={i}
-                className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-lg border border-white/10 shadow-lg hover:scale-[1.05]"
-              >
-                <p className="text-gray-300 text-sm">{s.title}</p>
-                <h2 className="text-2xl font-bold mt-2">{s.value}</h2>
+        {loading ? (
+          <p className="animate-pulse text-[#6b7280]">
+            Loading dashboard...
+          </p>
+        ) : (
+          <>
+
+            {/* 🔥 STATS */}
+            <div className="grid md:grid-cols-6 gap-5 mb-12">
+
+              {stats.map((s, i) => (
+                <div
+                  key={i}
+                  className="p-6 rounded-3xl bg-gradient-to-br from-pink-100/80 via-purple-100/70 to-cyan-100/80 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(255,255,255,0.35)] hover:scale-[1.04] transition-all duration-300"
+                >
+                  <p className="text-[#6b7280] text-sm font-medium">
+                    {s.title}
+                  </p>
+
+                  <h2 className="text-4xl font-black mt-3">
+                    {s.value}
+                  </h2>
+                </div>
+              ))}
+
+            </div>
+
+            {/* 🔥 TREND CHART */}
+            <div className="p-8 mb-10 rounded-3xl bg-white/60 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(255,255,255,0.35)]">
+
+              <h2 className="mb-6 text-2xl font-bold">
+                Weekly Issue Trend 📈
+              </h2>
+
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={trendData}>
+                  <XAxis dataKey="day" stroke="#6b7280" />
+                  <YAxis stroke="#6b7280" />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="issues"
+                    stroke="#c084fc"
+                    strokeWidth={4}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+
+            </div>
+
+            {/* 🔥 CHARTS */}
+            <div className="grid md:grid-cols-2 gap-10">
+
+              {/* LOCATION */}
+              <div className="p-8 rounded-3xl bg-white/60 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(255,255,255,0.35)]">
+
+                <h2 className="mb-6 text-2xl font-bold">
+                  Issues by Location 📍
+                </h2>
+
+                <ResponsiveContainer width="100%" height={320}>
+                  <BarChart data={locationData}>
+                    <XAxis dataKey="name" stroke="#6b7280" />
+                    <YAxis stroke="#6b7280" />
+                    <Tooltip />
+
+                    <Bar dataKey="value" radius={[20, 20, 0, 0]}>
+                      {locationData.map((_, i) => (
+                        <Cell
+                          key={i}
+                          fill={COLORS[i % COLORS.length]}
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+
               </div>
-            ))}
-          </div>
 
-          {/* 🔥 TREND CHART (NEW FEATURE) */}
-          <div className="p-6 mb-10 rounded-2xl bg-white/10 border border-white/10">
-            <h2 className="mb-4 font-semibold">Weekly Issue Trend 📈</h2>
+              {/* ASSIGNEE */}
+              <div className="p-8 rounded-3xl bg-white/60 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(255,255,255,0.35)]">
 
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={trendData}>
-                <XAxis dataKey="day" stroke="#ccc" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="issues" stroke="#6366F1" />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+                <h2 className="mb-6 text-2xl font-bold">
+                  Issues by Assignee 👤
+                </h2>
 
-          {/* 🔥 CHARTS */}
-          <div className="grid md:grid-cols-2 gap-10">
+                <ResponsiveContainer width="100%" height={320}>
+                  <PieChart>
 
-            {/* LOCATION */}
-            <div className="p-6 rounded-2xl bg-white/10 border border-white/10">
-              <h2 className="mb-4 font-semibold">Issues by Location 📍</h2>
+                    <Pie
+                      data={assigneeData}
+                      dataKey="value"
+                      nameKey="name"
+                      outerRadius={110}
+                      innerRadius={55}
+                      paddingAngle={5}
+                      label
+                    >
+                      {assigneeData.map((_, i) => (
+                        <Cell
+                          key={i}
+                          fill={COLORS[i % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
 
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={locationData}>
-                  <XAxis dataKey="name" stroke="#ccc" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value">
-                    {locationData.map((_, i) => (
-                      <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+                    <Tooltip />
+
+                  </PieChart>
+                </ResponsiveContainer>
+
+              </div>
+
             </div>
 
-            {/* ASSIGNEE */}
-            <div className="p-6 rounded-2xl bg-white/10 border border-white/10">
-              <h2 className="mb-4 font-semibold">Issues by Assignee 👤</h2>
-
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={assigneeData}
-                    dataKey="value"
-                    nameKey="name"
-                    outerRadius={100}
-                    label
-                  >
-                    {assigneeData.map((_, i) => (
-                      <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
