@@ -193,15 +193,13 @@ return ( <div className="pt-24 px-6 max-w-6xl mx-auto text-white">
           {issue.image && (
             <button
             onClick={() =>
-            setSelectedImage(
-            `${import.meta.env.VITE_API_URL}${issue.image}`
-            )
+            setSelectedImage(issue.image)
             }
             className="px-3 py-1 mt-3 bg-indigo-500/20 rounded hover:bg-indigo-500/40 transition"
             >
-            View Image 👁️
-            </button>
-            )}
+          View Image 👁️
+          </button>
+          )}
           <div className="flex gap-2 mt-4 flex-wrap">
 
             {role === "ADMIN" && issue.status === "OPEN" && (
