@@ -126,11 +126,7 @@ export default function AuditLogs() {
               </div>
             </div>
 
-            <p className="text-gray-400 text-lg leading-relaxed">
-              Real-time monitoring dashboard with premium
-              glassmorphism, advanced analytics, futuristic
-              animations, and ultra responsive cyber UI.
-            </p>
+            
           </div>
 
           {/* SEARCH */}
