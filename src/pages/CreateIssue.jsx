@@ -87,7 +87,7 @@ try {
 
   if (file) {
     const uploadRes = await uploadImage(file);
-    imagePath = uploadRes.data.imagePath;
+    imagePath = uploadRes.imagePath; 
   }
 
   await createIssue({
