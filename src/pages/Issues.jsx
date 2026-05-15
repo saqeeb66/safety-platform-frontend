@@ -182,12 +182,7 @@ export default function Issues() {
               </div>
             </div>
 
-            <p className="text-gray-400 text-lg max-w-2xl">
-              Premium issue tracking dashboard with crystal
-              glassmorphism UI, futuristic animations,
-              responsive cards, and enterprise workflow
-              experience.
-            </p>
+            
           </div>
 
           {/* FILTER */}
