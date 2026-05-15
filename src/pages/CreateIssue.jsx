@@ -196,11 +196,7 @@ export default function CreateIssue() {
                   </div>
                 </div>
 
-                <p className="max-w-xl text-gray-400 leading-relaxed">
-                  Report issues with premium glassmorphism,
-                  futuristic animations, smooth interactions,
-                  and fully responsive layouts.
-                </p>
+               
               </div>
 
               <div className="hidden md:flex items-center justify-center h-24 w-24 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
