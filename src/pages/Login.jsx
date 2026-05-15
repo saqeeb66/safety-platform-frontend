@@ -1,4 +1,4 @@
-import { useState } from "react";
+limport { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
 
@@ -359,7 +359,7 @@ export default function Login() {
                   </p>
 
                   <p className="text-gray-400">
-                    user@example.com
+                    user@exaple.com
                   </p>
                 </div>
 
