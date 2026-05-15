@@ -186,12 +186,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <p className="text-gray-400 text-lg max-w-2xl">
-              Futuristic analytics dashboard with advanced
-              crystal UI, immersive visualizations, smooth
-              animations, and enterprise-level responsive
-              experience.
-            </p>
+            
           </div>
 
           {/* ACTIONS */}
