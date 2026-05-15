@@ -6,6 +6,11 @@ import {
   Activity,
   AlertTriangle,
   Clock3,
+  Sparkles,
+  Radar,
+  ShieldAlert,
+  ArrowUpRight,
+  DatabaseZap,
 } from "lucide-react";
 
 export default function AuditLogs() {
@@ -48,12 +53,16 @@ export default function AuditLogs() {
     (l.action || "").includes("ISSUE")
   ).length;
 
+  const deleteLogs = logs.filter((l) =>
+    (l.action || "").includes("DELETE")
+  ).length;
+
   const getBadgeStyle = (action) => {
     if (!action)
       return "bg-gray-500/20 text-gray-200 border border-gray-400/20";
 
     if (action.includes("LOGIN")) {
-      return "bg-green-500/20 text-green-300 border border-green-400/20";
+      return "bg-emerald-500/20 text-emerald-300 border border-emerald-400/20";
     }
 
     if (action.includes("DELETE")) {
@@ -64,179 +73,262 @@ export default function AuditLogs() {
       return "bg-yellow-500/20 text-yellow-300 border border-yellow-400/20";
     }
 
+    if (action.includes("ISSUE")) {
+      return "bg-cyan-500/20 text-cyan-300 border border-cyan-400/20";
+    }
+
     return "bg-indigo-500/20 text-indigo-300 border border-indigo-400/20";
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#0b1020] text-white">
+    <div className="relative min-h-screen overflow-hidden bg-[#050816] text-white">
 
-      {/* BACKGROUND GLOW */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-500/20 blur-[120px] rounded-full" />
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 overflow-hidden">
 
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/20 blur-[120px] rounded-full" />
+        <div className="absolute top-[-150px] left-[-100px] w-[400px] h-[400px] bg-cyan-500/30 blur-[140px] rounded-full animate-pulse"></div>
 
-      <div className="relative z-10 px-6 pt-24 pb-10 max-w-7xl mx-auto">
+        <div className="absolute bottom-[-200px] right-[-100px] w-[450px] h-[450px] bg-fuchsia-500/25 blur-[160px] rounded-full animate-pulse"></div>
+
+        <div className="absolute top-[35%] left-[45%] w-[280px] h-[280px] bg-indigo-500/20 blur-[130px] rounded-full"></div>
+
+        {/* GRID */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:45px_45px]" />
+      </div>
+
+      <div className="relative z-10 px-4 md:px-8 pt-24 pb-14 max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10">
+        <div className="mb-12 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8">
 
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight">
-              Audit Logs 🔐
-            </h1>
+          <div className="max-w-2xl">
 
-            <p className="text-gray-400 mt-2">
-              Monitor system actions, security events, and user activities
+            <div className="flex items-center gap-4 mb-5">
+
+              <div className="relative">
+
+                <div className="absolute inset-0 rounded-3xl bg-cyan-500 blur-xl opacity-40"></div>
+
+                <div className="relative h-16 w-16 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-[0_10px_40px_rgba(34,211,238,0.4)]">
+                  <ShieldCheck className="w-8 h-8 text-white" />
+                </div>
+              </div>
+
+              <div>
+                <h1 className="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-white to-fuchsia-300 bg-clip-text text-transparent">
+                  Audit Logs
+                </h1>
+
+                <div className="flex items-center gap-2 mt-2 text-cyan-200 text-sm">
+                  <Sparkles size={16} />
+                  AI Powered Security Monitoring
+                </div>
+              </div>
+            </div>
+
+            <p className="text-gray-400 text-lg leading-relaxed">
+              Real-time monitoring dashboard with premium
+              glassmorphism, advanced analytics, futuristic
+              animations, and ultra responsive cyber UI.
             </p>
           </div>
 
           {/* SEARCH */}
-          <div className="relative w-full md:w-[380px]">
-            <Search
-              size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-            />
+          <div className="relative w-full xl:w-[420px] group">
 
-            <input
-              placeholder="Search actions..."
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="
-                w-full
-                pl-11
-                pr-4
-                py-3
-                rounded-2xl
-                bg-white/10
-                backdrop-blur-xl
-                border border-white/10
-                outline-none
-                focus:border-indigo-400/40
-                transition
-                shadow-[0_8px_32px_rgba(0,0,0,0.25)]
-              "
-            />
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
+            <div className="relative flex items-center rounded-3xl border border-white/10 bg-white/10 backdrop-blur-2xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+
+              <Search
+                size={20}
+                className="absolute left-5 text-cyan-300"
+              />
+
+              <input
+                placeholder="Search logs, activities, actions..."
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="
+                  w-full
+                  bg-transparent
+                  pl-14
+                  pr-5
+                  py-5
+                  outline-none
+                  text-white
+                  placeholder:text-gray-400
+                "
+              />
+
+              <div className="pr-4">
+                <Radar className="text-fuchsia-300 animate-pulse" />
+              </div>
+            </div>
           </div>
         </div>
 
         {/* STATS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
 
-          {/* CARD 1 */}
-          <div
-            className="
-              rounded-3xl
-              bg-white/10
-              backdrop-blur-2xl
-              border border-white/10
-              p-6
-              shadow-[0_8px_32px_rgba(0,0,0,0.25)]
-            "
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 rounded-2xl bg-indigo-500/20">
-                <ShieldCheck className="text-indigo-300" />
+          {/* CARD */}
+          <div className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-white/10 backdrop-blur-3xl p-7 transition-all duration-500 hover:scale-[1.03] hover:border-cyan-400/20 shadow-[0_10px_50px_rgba(0,0,0,0.35)]">
+
+            <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/10 blur-3xl rounded-full"></div>
+
+            <div className="flex items-center justify-between mb-7">
+
+              <div className="p-4 rounded-2xl bg-cyan-500/15 border border-cyan-400/20">
+                <DatabaseZap className="text-cyan-300" />
               </div>
 
-              <span className="text-xs text-green-300 bg-green-500/10 px-3 py-1 rounded-full">
-                Active
-              </span>
+              <div className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-400/20">
+                <ArrowUpRight size={13} />
+                Live
+              </div>
             </div>
 
-            <h2 className="text-4xl font-bold">{totalLogs}</h2>
+            <h2 className="text-5xl font-black mb-2">
+              {totalLogs}
+            </h2>
 
-            <p className="text-gray-400 mt-2">
-              Total Audit Logs
+            <p className="text-gray-400">
+              Total System Logs
             </p>
           </div>
 
-          {/* CARD 2 */}
-          <div
-            className="
-              rounded-3xl
-              bg-white/10
-              backdrop-blur-2xl
-              border border-white/10
-              p-6
-              shadow-[0_8px_32px_rgba(0,0,0,0.25)]
-            "
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 rounded-2xl bg-green-500/20">
-                <Activity className="text-green-300" />
+          {/* CARD */}
+          <div className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-white/10 backdrop-blur-3xl p-7 transition-all duration-500 hover:scale-[1.03] hover:border-emerald-400/20 shadow-[0_10px_50px_rgba(0,0,0,0.35)]">
+
+            <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 blur-3xl rounded-full"></div>
+
+            <div className="flex items-center justify-between mb-7">
+
+              <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-400/20">
+                <Activity className="text-emerald-300" />
               </div>
 
-              <span className="text-xs text-cyan-300 bg-cyan-500/10 px-3 py-1 rounded-full">
-                Secure
-              </span>
+              <div className="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-400/20">
+                Protected
+              </div>
             </div>
 
-            <h2 className="text-4xl font-bold">{loginLogs}</h2>
+            <h2 className="text-5xl font-black mb-2">
+              {loginLogs}
+            </h2>
 
-            <p className="text-gray-400 mt-2">
+            <p className="text-gray-400">
               Login Activities
             </p>
           </div>
 
-          {/* CARD 3 */}
-          <div
-            className="
-              rounded-3xl
-              bg-white/10
-              backdrop-blur-2xl
-              border border-white/10
-              p-6
-              shadow-[0_8px_32px_rgba(0,0,0,0.25)]
-            "
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 rounded-2xl bg-yellow-500/20">
+          {/* CARD */}
+          <div className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-white/10 backdrop-blur-3xl p-7 transition-all duration-500 hover:scale-[1.03] hover:border-yellow-400/20 shadow-[0_10px_50px_rgba(0,0,0,0.35)]">
+
+            <div className="absolute top-0 right-0 w-40 h-40 bg-yellow-500/10 blur-3xl rounded-full"></div>
+
+            <div className="flex items-center justify-between mb-7">
+
+              <div className="p-4 rounded-2xl bg-yellow-500/15 border border-yellow-400/20">
                 <AlertTriangle className="text-yellow-300" />
               </div>
 
-              <span className="text-xs text-pink-300 bg-pink-500/10 px-3 py-1 rounded-full">
+              <div className="text-xs px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 border border-pink-400/20">
                 Tracking
-              </span>
+              </div>
             </div>
 
-            <h2 className="text-4xl font-bold">{issueLogs}</h2>
+            <h2 className="text-5xl font-black mb-2">
+              {issueLogs}
+            </h2>
 
-            <p className="text-gray-400 mt-2">
+            <p className="text-gray-400">
               Issue Activities
+            </p>
+          </div>
+
+          {/* CARD */}
+          <div className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-white/10 backdrop-blur-3xl p-7 transition-all duration-500 hover:scale-[1.03] hover:border-red-400/20 shadow-[0_10px_50px_rgba(0,0,0,0.35)]">
+
+            <div className="absolute top-0 right-0 w-40 h-40 bg-red-500/10 blur-3xl rounded-full"></div>
+
+            <div className="flex items-center justify-between mb-7">
+
+              <div className="p-4 rounded-2xl bg-red-500/15 border border-red-400/20">
+                <ShieldAlert className="text-red-300" />
+              </div>
+
+              <div className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-400/20">
+                Sensitive
+              </div>
+            </div>
+
+            <h2 className="text-5xl font-black mb-2">
+              {deleteLogs}
+            </h2>
+
+            <p className="text-gray-400">
+              Delete Activities
             </p>
           </div>
         </div>
 
-        {/* LOGS SECTION */}
-        <div
-          className="
-            rounded-[32px]
-            bg-white/10
-            backdrop-blur-2xl
-            border border-white/10
-            shadow-[0_8px_32px_rgba(0,0,0,0.25)]
-            overflow-hidden
-          "
-        >
+        {/* TABLE SECTION */}
+        <div className="relative overflow-hidden rounded-[35px] border border-white/10 bg-white/10 backdrop-blur-3xl shadow-[0_20px_80px_rgba(0,0,0,0.4)]">
 
-          {/* TABLE HEADER */}
-          <div className="px-8 py-6 border-b border-white/10">
-            <h2 className="text-2xl font-semibold">
-              System Activity
-            </h2>
+          {/* TOP */}
+          <div className="relative border-b border-white/10 px-8 py-7">
 
-            <p className="text-gray-400 text-sm mt-1">
-              Real-time audit trail of platform operations
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5"></div>
+
+            <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+
+              <div>
+                <h2 className="text-3xl font-bold mb-2">
+                  System Activity Feed
+                </h2>
+
+                <p className="text-gray-400">
+                  Real-time platform audit and security trail
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-cyan-300 bg-cyan-500/10 border border-cyan-400/20 px-4 py-2 rounded-full w-fit">
+                <div className="w-2 h-2 rounded-full bg-cyan-300 animate-ping"></div>
+                Live Monitoring Enabled
+              </div>
+            </div>
           </div>
 
+          {/* CONTENT */}
           {loading ? (
-            <div className="p-10 text-center text-gray-400 animate-pulse">
-              Loading audit logs...
+            <div className="p-20 flex flex-col items-center justify-center">
+
+              <div className="relative mb-6">
+
+                <div className="w-20 h-20 border-[3px] border-cyan-500/20 border-t-cyan-400 rounded-full animate-spin"></div>
+
+                <div className="absolute inset-3 border-[3px] border-fuchsia-500/20 border-t-fuchsia-400 rounded-full animate-spin"></div>
+              </div>
+
+              <p className="text-gray-400 text-lg animate-pulse">
+                Loading audit intelligence...
+              </p>
             </div>
           ) : filteredLogs.length === 0 ? (
-            <div className="p-10 text-center text-gray-400">
-              No logs found.
+            <div className="p-20 text-center">
+
+              <div className="mx-auto mb-5 h-24 w-24 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                <Search className="w-10 h-10 text-gray-500" />
+              </div>
+
+              <h3 className="text-2xl font-bold mb-2">
+                No Logs Found
+              </h3>
+
+              <p className="text-gray-400">
+                Try searching with another keyword
+              </p>
             </div>
           ) : (
             <div className="divide-y divide-white/5">
@@ -245,27 +337,45 @@ export default function AuditLogs() {
                 <div
                   key={i}
                   className="
-                    px-8
-                    py-5
-                    hover:bg-white/[0.03]
+                    group
+                    relative
+                    px-6 md:px-8
+                    py-6
+                    hover:bg-white/[0.04]
                     transition-all
-                    duration-300
+                    duration-500
                   "
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+
+                  <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-cyan-400 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition duration-500 rounded-r-full"></div>
+
+                  <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
 
                     {/* LEFT */}
                     <div className="flex-1">
 
-                      <div className="flex items-center gap-3 mb-3 flex-wrap">
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
 
-                        <span className="font-semibold text-white">
-                          {log.email}
-                        </span>
+                        <div className="flex items-center gap-3">
+
+                          <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-fuchsia-500/20 border border-white/10 flex items-center justify-center font-bold text-cyan-200">
+                            {log.email?.charAt(0)?.toUpperCase()}
+                          </div>
+
+                          <div>
+                            <h3 className="font-semibold text-lg text-white">
+                              {log.email}
+                            </h3>
+
+                            <p className="text-sm text-gray-400">
+                              System User
+                            </p>
+                          </div>
+                        </div>
 
                         <span
                           className={`
-                            px-3 py-1 rounded-full text-xs font-medium
+                            px-4 py-2 rounded-full text-xs font-semibold tracking-wide backdrop-blur-xl
                             ${getBadgeStyle(log.action)}
                           `}
                         >
@@ -273,26 +383,45 @@ export default function AuditLogs() {
                         </span>
                       </div>
 
-                      <div className="text-sm text-gray-300 break-all">
-                        {JSON.stringify(log.metadata)}
+                      <div className="rounded-2xl border border-white/5 bg-black/20 backdrop-blur-xl p-4 overflow-auto">
+
+                        <pre className="text-sm text-gray-300 whitespace-pre-wrap break-all font-mono">
+                          {JSON.stringify(log.metadata, null, 2)}
+                        </pre>
                       </div>
                     </div>
 
                     {/* RIGHT */}
-                    <div className="flex items-center gap-2 text-sm text-gray-400 whitespace-nowrap">
+                    <div className="flex items-center gap-3 text-sm text-gray-400 bg-white/5 border border-white/10 rounded-2xl px-5 py-4 w-fit backdrop-blur-xl">
 
-                      <Clock3 size={16} />
+                      <Clock3 size={18} className="text-cyan-300" />
 
-                      {new Date(log.createdAt).toLocaleString()}
+                      <span>
+                        {new Date(
+                          log.createdAt
+                        ).toLocaleString()}
+                      </span>
                     </div>
                   </div>
                 </div>
               ))}
-
             </div>
           )}
         </div>
       </div>
+
+      {/* CUSTOM ANIMATIONS */}
+      <style>{`
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.15);
+          border-radius: 999px;
+        }
+      `}</style>
     </div>
   );
 }
